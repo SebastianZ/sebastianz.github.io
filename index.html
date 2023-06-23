@@ -1319,6 +1319,48 @@ p {
 					</div>
 				</section>
 
+				<section id="box-shadow-longhands">
+					<h2><code>box-shadow-*</code> longhand properties</h2>
+					<p>Different <code>box-shadow-*</code> properties for the different parts of box shadows</p>
+					<pre><code class="language-css">.container {
+  box-shadow-offset: 4px 6px;
+  box-shadow-color: rgb(0 0 0 / 0.4);
+  box-shadow-blur: 5px;
+  box-shadow-spread: 0;
+  box-shadow-position: inset;
+}</code></pre>
+					<div class="additional-info">
+						<a href="https://drafts.csswg.org/css-backgrounds-4/#drop-shadows">https://drafts.csswg.org/css-backgrounds-4/#drop-shadows</a>
+					</div>
+				</section>
+
+				<section id="stripes">
+					<h2><code>stripes()</code></h2>
+					<p>Defines a 1d image that can be used in different contexts like multi-color borders</p>
+					<pre><code class="language-css">.container {
+  border: 10px solid stripes(red 1px, green 2fr, blue 2px);
+}</code></pre>
+					<div class="additional-info">
+						<a href="https://drafts.csswg.org/css-images-4/#stripes">https://drafts.csswg.org/css-images-4/#stripes</a>
+						<a href="https://drafts.csswg.org/css-backgrounds-4/#the-border-color">https://drafts.csswg.org/css-backgrounds-4/#the-border-color</a>
+					</div>
+				</section>
+
+				<section id="border-radius-longhands">
+					<h2><code>border-*-radius</code> longhand properties</h2>
+					<p>Border properties that allow to set the two radii for one side</p>
+					<pre><code class="language-css">.container {
+  border-top-radius: 10px;
+}
+
+.container {
+  border-inline-end-radius: 10px;
+}</code></pre>
+					<div class="additional-info">
+						<a href="https://drafts.csswg.org/css-backgrounds-4/#corner-sizing">https://drafts.csswg.org/css-backgrounds-4/#corner-sizing</a>
+					</div>
+				</section>
+
 				<section>
 					<h2>Sources</h2>
 					<ul>
