@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Star Rating Custom Element</title>
+		<script src="star-rating.js"></script>
+	</head>
+	<body>
+		<form action="">
+			<star-rating name="star-rating1" required></star-rating>
+			<star-rating name="star-rating2" value="1"></star-rating>
+			<star-rating name="star-rating3" value="3"></star-rating>
+			<star-rating name="star-rating4" disabled></star-rating>
+			<button type="submit">Submit</button>
+			<button type="reset">Reset</button>
+		</form>
+		<script>
+			document.querySelector('form').addEventListener('submit', function(e) {
+				e.preventDefault();
+				console.log('Value:', new FormData(this));
+			});
+		</script>
+	</body>
+</html>
