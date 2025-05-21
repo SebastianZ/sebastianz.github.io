@@ -1,0 +1,247 @@
+@layer base, components, utilities;
+
+@layer base {
+	* {
+		box-sizing: border-box;
+	}
+
+	:root {
+		--dark-blue: hsl(233, 26%, 24%);
+		--lime-green: hsl(136, 65%, 51%);
+		--bright-cyan: hsl(192, 70%, 51%);
+
+		--grayish-blue: hsl(233, 8%, 62%);
+		--light-grayish-blue: hsl(220, 16%, 96%);
+		--very-light-gray: hsl(0, 0%, 98%);
+		--white: hsl(0, 0%, 100%);
+
+		--primary-color: var(--very-light-gray);
+		--secondary-color: var(--white);
+		--text-color: var(--dark-blue);
+	}
+
+	body {
+		margin: 0;
+		font-family: 'Poppins', sans-serif;
+		font-size: 1.125rem;
+		background-color: var(--primary-color);
+		color: var(--text-color);
+	}
+
+	header {
+		position: sticky;
+		top: 0;
+		width: 100vw;
+		z-index: 1;
+		background-color: var(--white);
+	}
+
+	footer {
+		display: flex;
+		justify-content: space-between;
+		background-color: var(--dark-blue);
+		color: var(--white);
+		padding: 20px;
+
+		& a {
+			color: var(--white);
+			text-decoration: none;
+		}
+	}
+
+	h1 {
+		font-size: 3.5rem;
+		font-weight: 400;
+		margin: 0;
+	}
+
+	a {
+		color: var(--grayish-blue);
+
+		&:hover {
+			color: var(--dark-blue);
+		}
+	}
+}
+
+@layer components {
+	.hamburger-menu {
+		box-sizing: content-box;
+		padding: 1em;
+		width: 2em;
+		height: 2em;
+		border: none;
+		background-color: transparent
+	}
+
+	.header-nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.header-links {
+		list-style-type: none;
+		margin: 0;
+		border: none;
+		padding: 0;
+
+		&::backdrop {
+			background-image: linear-gradient(from top, rgb(0 0 0 / 0.5), transparent 80%);
+		}
+
+		& a {
+			display: flex;
+			align-items: center;
+			text-decoration: none;
+			margin-inline: 1em;
+			border-bottom: 5px solid transparent;
+			height: 100%;
+
+			&:hover {
+				border-bottom-color: var(--lime-green);
+			}
+		}
+
+		@media (width < 830px) {
+			left: 50%;
+			top: 80px;
+			translate: -50%;
+			font-size: 1.5rem;
+			padding: 1em;
+		}
+
+		@media (width >= 830px) {
+			display: flex;
+			height: 100%;
+		}
+	}
+
+	.hero-area {
+		position: relative;
+		background: url('./images/bg-intro-desktop.svg') no-repeat right -30em center / 80em var(--very-light-gray);
+	}
+
+	.hero-content {
+		width: 40%;
+	}
+
+	.hero-image {
+		position: absolute;
+		top: 0;
+		right: -5em;
+		height: calc(100% + 8em);
+	}
+
+	.footer-nav {
+		display: grid;
+		grid-template: auto auto / repeat(3, 1fr);
+	}
+
+	.social-links {
+		grid-column: 1;
+		list-style-type: none;
+	}
+
+	.footer-links {
+		columns: 2;
+		list-style-type: none;
+	}
+
+	.attribution {
+		font-size: 11px;
+		text-align: center;
+	}
+
+	.attribution a {
+		color: hsl(228, 45%, 44%);
+	}
+
+	.btn {
+		display: inline-block;
+		border-radius: 100vw;
+		background: linear-gradient(120deg, var(--lime-green), var(--bright-cyan)) var(--lime-green);
+		margin: 1em;
+		padding: 1em 2em;
+		font-weight: 700;
+		color: var(--white);
+		text-decoration: none;
+		white-space: nowrap;
+
+		&:hover {
+			background-image: linear-gradient(hsl(from var(--white) h s l / 0.5)), linear-gradient(120deg, var(--lime-green), var(--bright-cyan));
+		}
+	}
+
+	.advantages {
+		background-color: var(--white);
+	}
+
+	.advantages-wrapper {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 24px 32px;
+		margin: 0 auto;
+	}
+
+	.latest-articles {
+		background-color: var(--very-light-gray);
+	}
+
+	.articles {
+		display: grid;
+		grid-template: repeat(4, min-content) / repeat(4, 1fr);
+		gap: 24px 32px;
+	}
+
+	.news {
+		grid-row: 1 / -1;
+		display: grid;
+		grid-template-rows: subgrid;
+		padding: 24px;
+		background-color: var(--white);
+
+		& > * {
+			margin-block: 0;
+		}
+	}
+
+	.news-image {
+		width: calc(100% + 48px);
+		height: 200px;
+		margin: -24px -24px 0;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+}
+
+@layer utilities {
+	.content-wrapper {
+		display: grid;
+		grid-template-columns: [full-width-start] 1fr [center-start] minmax(min-content, 1110px) [center-end] 1fr [full-width-end];
+	}
+
+	.centered-content {
+		grid-column: center;
+	}
+
+	.full-width-content {
+		grid-column: full-width;
+	}
+
+	.breathing-wrapper {
+		margin-block: 8em;
+	}
+
+	.hidden-mobile {
+		@media (width < 830px) {
+			display: none;
+		}
+	}
+
+	.hidden-desktop {
+		@media (width >= 830px) {
+			display: none;
+		}
+	}
+}
