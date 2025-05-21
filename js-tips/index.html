@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>JavaScript tips and tricks</title>
+		<link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css"/>
+		<link rel="stylesheet" href="node_modules/reveal.js/dist/theme/moon.css"/>
+		<link rel="stylesheet" href="node_modules/reveal.js/plugin/highlight/monokai.css"/>
+		<link rel="stylesheet" href="styles.css"/>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<div class="centered">
+						<h1>JavaScript tips and tricks</h1>
+					</div>
+				</section>
+
+				<section id="me">
+					<h2>Who am I?</h2>
+					<ul>
+						<li>Name: Sebastian Zartner</li>
+						<li>Company: <a href="https://de.webedia-group.com/">Webedia Gaming GmbH</a></li>
+						<li>Contributions: Former <a href="https://github.com/firebug/firebug/graphs/contributors">Firebug contributor</a>, Firefox contributor, <a href="https://www.w3.org/groups/wg/css/participants/">invited expert of CSS Working Group</a></li>
+						<li>Contact info: <a href="mailto:sebastian.zartner@webedia-group.com">sebastian.zartner@webedia-group.com</a></li>
+					</ul>
+				</section>
+
+				<section id="appen-prepend" data-auto-animate>
+					<h2><code>append()</code> and <code>prepend()</code></h2>
+					<pre data-id="append-prepend"><code class="language-javascript" data-trim data-line-numbers>
+						const div = document.createElement('div');
+						const p = document.createElement('p');
+						div.appendChild(p);
+						document.body.insertBefore(div, document.body.firstChild);
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2><code>append()</code> and <code>prepend()</code></h2>
+					<pre data-id="append-prepend"><code class="language-javascript" data-trim data-line-numbers="3-4">
+						const div = document.createElement('div');
+						const p = document.createElement('p');
+						div.appendChild(p);
+						document.body.insertBefore(div, document.body.firstChild);
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2><code>append()</code> and <code>prepend()</code></h2>
+					<pre data-id="append-prepend"><code class="language-javascript" data-trim data-line-numbers="3-4">
+						const div = document.createElement('div');
+						const p = document.createElement('p');
+						div.append(p);
+						document.body.prepend(div);
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2><code>append()</code> and <code>prepend()</code></h2>
+					<pre data-id="append-prepend"><code class="language-javascript" data-trim data-line-numbers="3">
+						const div = document.createElement('div');
+						const p = document.createElement('p');
+						div.append(p, 'Hello CFCamp!');
+						document.body.prepend(div);
+					</code></pre>
+				</section>
+
+				<section id="match-media" data-auto-animate>
+					<h2><code>matchMedia()</code></h2>
+					<pre data-id="matchMedia"><code class="language-javascript" data-trim data-line-numbers="1|2">
+						const mediaQuery = window.matchMedia('(width >= 1000px)');
+						if (mediaQuery.matches) {
+							console.log('Viewport is at least 1000px wide');
+						}
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2><code>matchMedia()</code></h2>
+					<pre data-id="matchMedia"><code class="language-javascript" data-trim data-line-numbers="2-3,6">
+						const mediaQuery = window.matchMedia('(width >= 1000px)');
+						mediaQuery.addEventListener('change', event => {
+						if (mediaQuery.matches) {
+							console.log('Viewport is at least 1000px wide');
+						}
+						});
+					</code></pre>
+				</section>
+
+				<section id="operators" data-auto-animate>
+					<h2>Operators</h2>
+					<pre data-id="operators"><code class="language-javascript" data-trim data-line-numbers="1-4|2-3">
+						const user = { name: 'Alice', address: { city: 'Springfield' } };
+						const city = user?.address?.city;
+						const phone = user?.phone?.number ?? 'No phone number';
+						console.log(city, ',', phone); // Springfield , No phone number
+					</code></pre>
+				</section>
+
+
+				<section id="custom-events" data-auto-animate>
+					<h2>Custom events</h2>
+					<pre data-id="custom-events"><code class="language-javascript" data-trim data-line-numbers="1-8|1|4|8">
+						const event = new CustomEvent('customEvent');
+
+						element = document.querySelector('.element');
+						element.addEventListener('customEvent', (evt) => {
+							console.log('element');
+						});
+
+						element.dispatchEvent(event);
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2>Custom events</h2>
+					<pre data-id="custom-events"><code class="language-javascript" data-trim data-line-numbers="2,7">
+						const event = new CustomEvent('customEvent', {
+							detail: { key: 'value' },
+						});
+
+						element = document.querySelector('.element');
+						element.addEventListener('customEvent', (evt) => {
+							console.log('element', evt.detail.key);
+						});
+
+						element.dispatchEvent(event);
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2>Custom events</h2>
+					<pre data-id="custom-events"><code class="language-javascript" data-trim data-line-numbers="3,10-12">
+						const event = new CustomEvent('customEvent', {
+							detail: { key: 'value' },
+							bubbles: true,
+						});
+
+						element = document.querySelector('.element');
+						element.addEventListener('customEvent', (evt) => {
+							console.log('element', evt.detail.key);
+						});
+						document.body.addEventListener('customEvent', (evt) => {
+							console.log('body', evt);
+						});
+
+						element.dispatchEvent(event);
+					</code></pre>
+				</section>
+
+				<section id="intersection-observers" data-auto-animate>
+					<h2>Intersection Observers</h2>
+					<pre data-id="intersection-observers"><code class="language-javascript" data-trim data-line-numbers="1-9|1-7|2-6|3|9">
+						const observer = new IntersectionObserver((entries) => {
+							entries.forEach((entry) => {
+								if (entry.isIntersecting) {
+									console.log('Element is intersecting');
+								}
+							});
+						});
+
+						observer.observe(document.querySelector('.element'));
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2>Intersection Observers</h2>
+					<pre data-id="intersection-observers"><code class="language-javascript" data-trim data-line-numbers="6|3,7">
+						const observer = new IntersectionObserver((entries) => {
+							entries.forEach((entry) => {
+								console.log(entry.intersectionRatio);
+							});
+						}, {
+							rootMargin: '0px 0px -100px 0px',
+							threshhold: 0.5,
+						});
+
+						observer.observe(document.querySelector('.element'));
+					</code></pre>
+				</section>
+
+				<section id="named-capturing-groups" data-auto-animate>
+					<h2>Named capturing groups</h2>
+					<pre data-id="named-capturing-groups"><code class="language-javascript" data-trim data-line-numbers="1-3|1,3">
+						const re = /(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/;
+						const match = re.exec('2025-05-22');
+						console.log(match.groups.year, match.groups.month, match.groups.day);
+					</code></pre>
+				</section>
+
+				<section id="animate-elements" data-auto-animate>
+					<h2>Animate elements</h2>
+					<pre data-id="animate-elements"><code class="language-javascript" data-trim data-line-numbers="1-7|1-4|5-6">
+						document.querySelector('.element').animate([
+							{ transform: 'rotate(0deg)' },
+							{ transform: 'rotate(359deg)' }
+						], {
+							duration: 10000,
+							iterations: Infinity
+						});
+					</code></pre>
+				</section>
+
+				<section id="clipboard-api" data-auto-animate>
+					<h2>Clipboard API</h2>
+					<pre data-id="clipboard-api"><code class="language-javascript" data-trim data-line-numbers>
+						navigator.clipboard.writeText('Hello, world!');
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2>Clipboard API</h2>
+					<pre data-id="clipboard-api"><code class="language-javascript" data-trim data-line-numbers="1-6|2-5|4">
+						navigator.clipboard.write([
+							new ClipboardItem({
+								'text/plain':
+									new Blob(['Hello, world!'], { type: 'text/plain' })
+							})
+						]);
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2>Clipboard API</h2>
+					<pre data-id="clipboard-api"><code class="language-javascript" data-trim data-line-numbers="1-4|2-4">
+						navigator.clipboard.readText()
+							.then((text) => {
+								console.log(text);
+							});
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2>Clipboard API</h2>
+					<pre data-id="clipboard-api"><code class="language-javascript" data-trim data-line-numbers="1-9|1|3-9|4|7">
+						const clipboardContents = await navigator.clipboard.read();
+
+						for (const item of clipboardContents) {
+							if (!item.types.includes('image/png')) {
+								continue;
+							}
+							const blob = await item.getType('image/png');
+							document.querySelector('.profile-picture').src = URL.createObjectURL(blob);
+						}
+					</code></pre>
+				</section>
+
+				<section id="intl" data-auto-animate>
+					<h2><code>Intl</code> APIs</h2>
+					<pre data-id="intl"><code class="language-javascript" data-trim data-line-numbers="1-5|2-3|4-5">
+						const number = 123456.78;
+						const enUsFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+						const deDeFormatter = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
+						console.log(enUsFormatter.format(number)); // $123,456.78
+						console.log(deDeFormatter.format(number)); // 123.456,78 €
+					</code></pre>
+				</section>
+
+				<section id="url-search-params" data-auto-animate>
+					<h2><code>URLSearchParams</code></h2>
+					<pre data-id="URLSearchParams"><code class="language-javascript" data-trim data-line-numbers="1-3|1|2">
+						const params = new URLSearchParams('key1=value1&key2=value2');
+						params.append('key3', 'value3');
+						console.log(params.toString());
+					</code></pre>
+				</section>
+
+				<section id="console-api" data-auto-animate>
+					<h2>Console API</h2>
+					<pre data-id="console-api"><code class="language-javascript" data-trim data-line-numbers="1-10|2">
+						function createElement() {
+							console.count('counter');
+							const div = document.createElement('div');
+							div.textContent = 'Hello, world!';
+							document.body.append(div);
+						}
+
+						for (let i = 0; i < 5; i++) {
+							createElement();
+						}
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2>Console API</h2>
+					<pre data-id="console-api"><code class="language-javascript" data-trim data-line-numbers>
+						console.group('Group');
+						console.log('Hello, world!');
+						console.error('Error');
+						console.groupEnd();
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2>Console API</h2>
+					<pre data-id="console-api"><code class="language-javascript" data-trim data-line-numbers>
+						console.table([{ name: 'Alice', age: 25 }, { name: 'Bob', age: 30 }]);
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2>Console API</h2>
+					<pre data-id="console-api"><code class="language-javascript" data-trim data-line-numbers="1-3|1,3">
+						console.time('Timer');
+						await fetch('https://www.cfcamp.org/');
+						console.timeEnd('Timer');
+					</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h2>Console API</h2>
+					<pre data-id="console-api"><code class="language-javascript" data-trim data-line-numbers="1-9|2">
+						function bar() {
+							console.trace();
+						}
+
+						function foo() {
+							bar();
+						}
+
+						foo();
+					</code></pre>
+				</section>
+
+				<section>
+					<div class="centered">
+						<h2>Thank you!</h2>
+					</div>
+				</section>
+			</div>
+		</div>
+		<script type="importmap">
+			{
+				"imports": {
+					"reveal.js": "./node_modules/reveal.js/dist/reveal.esm.js",
+					"markdown": "./node_modules/reveal.js/plugin/markdown/markdown.esm.js",
+					"highlight": "./node_modules/reveal.js/plugin/highlight/highlight.esm.js"
+				}
+			}
+		</script>
+		<script type="module" src="./main.js"></script>
+	</body>
+</html>
