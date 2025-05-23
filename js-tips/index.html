@@ -339,6 +339,18 @@
 					<p class="baseline-widely-available" data-id="baseline">Baseline Widely available</p>
 				</section>
 
+				<section data-auto-animate>
+					<h2>Web Speech API (Speech Synthesis)</h2>
+					<pre data-id="web-speech-api"><code class="language-javascript" data-trim data-line-numbers="1-5|1-3|4|5">
+						const utterance = new SpeechSynthesisUtterance(
+							'Hello CFCamp people!'
+						);
+						utterance.lang = 'en-US';
+						speechSynthesis.speak(utterance);
+					</code></pre>
+					<p class="baseline-widely-available" data-id="baseline">Baseline Widely available</p>
+				</section>
+
 				<section id="console-api" data-auto-animate>
 					<h2>Console API</h2>
 					<pre data-id="console-api"><code class="language-javascript" data-trim data-line-numbers="1-10|2">
