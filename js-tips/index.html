@@ -157,6 +157,7 @@
 						const user = { name: 'Alice', address: { city: 'Springfield' } };
 						const city = user?.address?.city;
 						const phone = user?.phone?.number ?? 'No phone number';
+						const phone ??= 'Really, no phone number';
 						console.log(city, ',', phone); // Springfield , No phone number
 					</code></pre>
 
