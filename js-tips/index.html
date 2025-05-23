@@ -84,10 +84,12 @@
 
 				<section id="match-media" data-auto-animate>
 					<h2><code>matchMedia()</code></h2>
-					<pre data-id="matchMedia"><code class="language-javascript" data-trim data-line-numbers="1|2">
+					<pre data-id="matchMedia"><code class="language-javascript" data-trim data-line-numbers="1-6|1|2">
 						const mediaQuery = window.matchMedia('(width >= 1000px)');
 						if (mediaQuery.matches) {
 							console.log('Viewport is at least 1000px wide');
+						} else {
+							console.log('Viewport is less than 1000px wide');
 						}
 					</code></pre>
 
@@ -96,11 +98,13 @@
 
 				<section data-auto-animate>
 					<h2><code>matchMedia()</code></h2>
-					<pre data-id="matchMedia"><code class="language-javascript" data-trim data-line-numbers="2-3,6">
+					<pre data-id="matchMedia"><code class="language-javascript" data-trim data-line-numbers="2-3,8">
 						const mediaQuery = window.matchMedia('(width >= 1000px)');
 						mediaQuery.addEventListener('change', event => {
 						if (mediaQuery.matches) {
 							console.log('Viewport is at least 1000px wide');
+						} else {
+							console.log('Viewport is less than 1000px wide');
 						}
 						});
 					</code></pre>
@@ -110,7 +114,20 @@
 
 				<section data-auto-animate>
 					<h2><code>requestSubmit()</code></h2>
-					<pre data-id="requestSubmit"><code class="language-javascript" data-trim data-line-numbers>
+					<pre data-id="requestSubmit"><code class="language-javascript" data-trim data-line-numbers="1-5|4">
+						const form = document.querySelector('form');
+						const button = document.querySelector('button');
+						button.addEventListener('click', () => {
+							form.submit();
+						});
+					</code></pre>
+
+					<p class="baseline-widely-available" data-id="baseline">Baseline Widely available</p>
+				</section>
+
+				<section data-auto-animate>
+					<h2><code>requestSubmit()</code></h2>
+					<pre data-id="requestSubmit"><code class="language-javascript" data-trim data-line-numbers="4">
 						const form = document.querySelector('form');
 						const button = document.querySelector('button');
 						button.addEventListener('click', () => {
