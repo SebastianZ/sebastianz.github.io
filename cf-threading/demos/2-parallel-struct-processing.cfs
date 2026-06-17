@@ -1,0 +1,18 @@
+struct = {
+	key1: "Alice",
+	key2: "Bob",
+	key3: "Charlie",
+	key4: "Diana",
+};
+
+start = getTickCount();
+structEach(
+	struct=struct,
+	closure=(value, key) => {
+		sleep(1000);
+		writeOutput("#key#: #value# #now()#<br>");
+	},
+	parallel=true,
+	maxThreads=3
+);
+dump("Processing completed in #getTickCount() - start# ms");

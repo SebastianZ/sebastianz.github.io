@@ -1,0 +1,3 @@
+name = "var#randRange(1, 100)#";
+setVariable(name, "Hello, World!");
+dump(getVariable(name));

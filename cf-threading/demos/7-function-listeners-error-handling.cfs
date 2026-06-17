@@ -1,0 +1,18 @@
+function randomFailure() {
+	sleep(1000);
+	if (randRange(1, 2) == 1) {
+		throw "Error!";
+	}
+	return "Success!";
+}
+
+start = getTickCount();
+randomFailure():{
+    onSuccess: (result) => {
+        systemOutput("Succeeded: #result#", true);
+    },
+    onFail: (error) => {
+        systemOutput("Failed: #error.message#", true);
+    }
+};
+dump("Processing completed in #getTickCount() - start# ms");

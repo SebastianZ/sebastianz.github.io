@@ -1,0 +1,17 @@
+function fetchData(name) {
+	thread name="#name#" {
+		thread action="sleep" duration=1000;
+	}
+}
+
+start = getTickCount();
+fetchData("x");
+fetchData("y");
+fetchData("z");
+
+thread action="terminate" name="x";
+sleep(500);
+dump(var=cfthread, label="Threads statuses before joining");
+thread action="join" name="#cfthread.keyList()#";
+dump(var=cfthread, label="All threads completed");
+dump("Total execution time: #getTickCount()-start#ms");

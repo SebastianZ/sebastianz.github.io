@@ -1,0 +1,10 @@
+function logData(data) {
+	thread {
+		sleep(1000);
+		systemOutput("Logged: #data#", true);
+	}
+}
+logData("Important info");
+logData("More info");
+logData("Even more info");
+dump("Function called asynchronously");

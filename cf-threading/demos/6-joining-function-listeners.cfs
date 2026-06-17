@@ -1,0 +1,16 @@
+function fetchUserData(userId) {
+    sleep(1000);
+    return {"id": userId, "name": "User #userId#"};
+}
+
+start = getTickCount();
+for (i = 1; i <= 5; i++) {
+	userId = randRange(1, 100);
+	fetchUserData(userId):(result, error) => {
+		thread.userData = result;
+	}
+}
+
+threadJoin(timeout=10000);
+dump(cfthread);
+dump("Processing completed in #getTickCount() - start# ms");

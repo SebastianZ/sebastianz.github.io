@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Threading in Lucee/CFML</title>
+		<link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css"/>
+		<link rel="stylesheet" href="node_modules/reveal.js/dist/theme/moon.css"/>
+		<link rel="stylesheet" href="node_modules/reveal.js/dist/plugin/highlight/monokai.css"/>
+		<link rel="stylesheet" href="src/styles.css"/>
+	</head>
+	<body id="root" class="reveal">
+		<div class="slides">
+			<section>
+				<div class="centered">
+					<h1>Boost your app's performance using threads</h1>
+					<h3>Threading and parallelization in Lucee / CFML</h3>
+				</div>
+			</section>
+
+			<section id="agenda">
+				<h2>Agenda</h2>
+				<ul>
+					<li>About me</li>
+					<li>Why threading?</li>
+					<li>&lt;cfthread&gt; basics</li>
+					<li>runAsync() / futures</li>
+					<li>Task threads &amp; scheduled work</li>
+					<li>Caveats &amp; best practices</li>
+					<li>Examples</li>
+				</ul>
+			</section>
+
+			<section id="me">
+				<h2>Who am I?</h2>
+				<ul>
+					<li>Name: Sebastian Zartner</li>
+					<li>Company: <a href="https://de.webedia-group.com/">Webedia GmbH</a></li>
+					<li>Contributions: Former <a href="https://github.com/firebug/firebug/graphs/contributors">Firebug contributor</a>, Firefox contributor, <a href="https://www.w3.org/groups/wg/css/participants/">invited expert of CSS Working Group</a></li>
+					<li>Trivia: <a href="http://web.archive.org/web/20131113062800/http://www.cfcamp.org/sessions.cfm#art270759">First time CFCamp speaker in 2013</a>, proud father of a smart, little daugther</li>
+					<li>Contact info: <a href="mailto:sebastianzartner@gmail.com">sebastianzartner@gmail.com</a></li>
+				</ul>
+			</section>
+
+			<section data-auto-animate>
+				<h2>Array parallel processing</h2>
+				<pre data-id="array-parallel-processing"><code class="language-cfml" data-trim data-line-numbers="1-13|10|11">
+					array = ["item1", "item2", "item3", "item4", "item5"];
+
+					start = getTickCount();
+					arrayEach(
+						array=array,
+						closure=(item) => {
+							sleep(1000);
+							writeOutput("#item# #now()#<br>");
+						},
+						parallel=true,
+						maxThreads=3
+					);
+					dump("Processing completed in #getTickCount() - start# ms");
+				</code></pre>
+			</section>
+
+			<section data-auto-animate>
+				<h2>Shared data</h2>
+				<pre data-id="shared-data"><code class="language-cfml" data-trim data-line-numbers>
+					request.counter = 0;
+
+					start = getTickCount();
+					for (i = 1; i <= 20; i++) {
+						thread {
+							sleep(1000);
+							request.counter++;
+						}
+					}
+					threadJoin();
+					dump(var=request.counter, label="All threads completed");
+					dump("Total execution time: #getTickCount()-start#ms");
+				</code></pre>
+			</section>
+
+			<section data-auto-animate>
+				<h2>Shared data</h2>
+				<pre data-id="shared-data"><code class="language-cfml" data-trim data-line-numbers>
+					request.counter = 0;
+
+					start = getTickCount();
+					for (i = 1; i <= 20; i++) {
+						thread {
+							sleep(1000);
+							lock scope="request" {
+								request.counter++;
+							}
+						}
+					}
+					threadJoin();
+					dump(var=request.counter, label="All threads completed");
+					dump("Total execution time: #getTickCount()-start#ms");
+				</code></pre>
+			</section>
+		</div>
+		<script type="importmap">
+			{
+				"imports": {
+					"reveal.js": "./node_modules/reveal.js/dist/reveal.mjs",
+					"markdown": "./node_modules/reveal.js/dist/plugin/markdown.mjs",
+					"highlight": "./node_modules/reveal.js/dist/plugin/highlight.mjs"
+				}
+			}
+		</script>
+		<script type="module" src="src/main.js"></script>
+	</body>
+</html>

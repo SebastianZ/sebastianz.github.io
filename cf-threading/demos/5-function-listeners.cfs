@@ -1,0 +1,10 @@
+function fetchUserData(userId) {
+    sleep(5000);
+    return {"id": userId, "name": "User #userId#"};
+}
+
+start = getTickCount();
+fetchUserData(123):function(result, error) {
+    fileWrite("./user_data.txt", serializeJson(result));
+};
+dump("Processing completed in #getTickCount() - start# ms");

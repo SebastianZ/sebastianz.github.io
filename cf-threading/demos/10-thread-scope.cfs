@@ -1,0 +1,16 @@
+function fetchData(name, delay) {
+	thread name="#name#" delay="#delay#" {
+		var start = getTickCount();
+		sleep(attributes.delay);
+		thread.data = "Data from #thread.name#";
+		thread.duration = getTickCount() - start;
+	}
+}
+
+start = getTickCount();
+fetchData("x", 1000);
+fetchData("y", 3000);
+fetchData("z", 2000);
+thread action="join" name=cfthread.keyList();
+dump(var=cfthread, label="All threads completed");
+dump("Total execution time: #getTickCount()-start#ms");

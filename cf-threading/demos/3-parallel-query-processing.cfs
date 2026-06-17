@@ -1,0 +1,19 @@
+query = queryNew("id,name", "integer,varchar", [
+	{id: 1, name: "Alice"},
+	{id: 2, name: "Bob"},
+	{id: 3, name: "Charlie"},
+	{id: 4, name: "Diana"},
+	{id: 5, name: "Eve"}
+]);
+
+start = getTickCount();
+queryEach(
+	query=query,
+	closure=(row) => {
+		sleep(1000);
+		writeOutput("#row.name# (ID: #row.id#) #now()#<br>");
+	},
+	parallel=true,
+	maxThreads=3
+);
+dump("Processing completed in #getTickCount() - start# ms");

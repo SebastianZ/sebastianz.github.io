@@ -1,0 +1,13 @@
+runs = 10;
+for (i = 1; i <= runs; i++) {
+	request["future#i#"] = runAsync(() => {
+		sleep(1000);
+		return randRange(1, 100);
+	});
+}
+
+start = getTickCount();
+for (i = 1; i <= runs; i++) {
+	dump(request["future#i#"].get());
+}
+dump("Total execution time: #getTickCount()-start#ms");
