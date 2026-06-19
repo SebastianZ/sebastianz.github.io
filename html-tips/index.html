@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>There's more to HTML than just divs!</title>
+		<link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css"/>
+		<link rel="stylesheet" href="node_modules/reveal.js/dist/theme/moon.css"/>
+		<link rel="stylesheet" href="node_modules/reveal.js/dist/plugin/highlight/monokai.css"/>
+		<link rel="stylesheet" href="img/styles.css"/>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<div class="centered">
+						<h1>There's more to HTML than just divs!</h1>
+					</div>
+				</section>
+
+				<section id="me">
+					<h2>Who am I?</h2>
+					<ul>
+						<li>Name: Sebastian Zartner</li>
+						<li>Company: <a href="https://de.webedia-group.com/">Webedia GmbH</a></li>
+						<li>Contributions: Former <a href="https://github.com/firebug/firebug/graphs/contributors">Firebug contributor</a>, Firefox contributor, <a href="https://www.w3.org/groups/wg/css/participants/">invited expert of CSS Working Group</a></li>
+						<li>Trivia: <a href="http://web.archive.org/web/20131113062800/http://www.cfcamp.org/sessions.cfm#art270759">First time CFCamp speaker in 2013</a>, proud father of a smart, little daugther</li>
+						<li>Contact info: <a href="mailto:sebastianzartner@gmail.com">sebastianzartner@gmail.com</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Semantic HTML elements</h2>
+					<p>You know <code>&lt;div></code>s and <code>&lt;span></code>s, but did you know those elements?</p>
+				</section>
+
+<!--
+				<section>
+					<h2>Content sectioning elements</h2>
+					<ul>
+						<li><code>&lt;article</code></li>
+						<li><code>&lt;aside</code></li>
+						<li><code>&lt;header</code></li>
+						<li><code>&lt;footer</code></li>
+						<li><code>&lt;nav</code></li>
+						<li><code>&lt;address</code></li>
+						<li><code>&lt;search</code></li>
+					</ul>
+				</section>
+-->
+				<section>
+					<h2><code>&lt;figure></code> / <code>&lt;figcaption></code></h2>
+					<pre data-id="figure-figcaption"><code class="language-html" data-trim data-line-numbers>
+						&lt;figure>
+							&lt;img src="/images/example.jpg" alt="">
+							&lt;figcaption>This is an example image.&lt;/figcaption>
+						&lt;/figure>
+					</code></pre>
+				</section>
+
+				<section>
+					<h2><code>&lt;cite></code> / <code>&lt;blockquote></code></h2>
+					<pre data-id="cite-blockquote"><code class="language-html" data-trim data-line-numbers>
+						&lt;cite>inline quote&lt;/cite>
+						&lt;blockquote>
+							There are 10 types of people.
+							Those that understand binary and those that don't.
+						&lt;/blockquote>
+					</code></pre>
+				</section>
+
+				<section>
+					<h2><code>&lt;data></code> / <code>&lt;time></code></h2>
+					<pre data-id="data-time"><code class="language-html" data-trim data-line-numbers>
+						&lt;data value="1234">1,234 people&lt;/time>
+						&lt;time value="2026-06-18">18.06.2026&lt;/time>
+					</code></pre>
+				</section>
+
+				<section>
+					<h2><code>&lt;picture></code></h2>
+					<pre data-id="picture"><code class="language-html" data-trim data-line-numbers>
+						&lt;picture>
+							&lt;source
+								srcset="/images/cat-portrait.jpg"
+								media="(orientation: portrait)" />
+							&lt;img src="/images/cat.jpg" alt="A cute cat" />
+						&lt;/picture>
+					</code></pre>
+				</section>
+
+				<section>
+					<h2><code>&lt;datalist></code></h2>
+					<pre data-id="picture"><code class="language-html" data-trim data-line-numbers>
+						&lt;input list="ice-cream-flavors" id="ice-cream-choice" />
+
+						&lt;datalist id="ice-cream-flavors">
+							&lt;option value="Chocolate">&lt;/option>
+							&lt;option value="Coconut">&lt;/option>
+							&lt;option value="Mint">&lt;/option>
+							&lt;option value="Strawberry">&lt;/option>
+							&lt;option value="Vanilla">&lt;/option>
+						&lt;/datalist>
+					</code></pre>
+
+					<input list="ice-cream-flavors" id="ice-cream-choice" />
+
+					<datalist id="ice-cream-flavors">
+						<option value="Chocolate"></option>
+						<option value="Coconut"></option>
+						<option value="Mint"></option>
+						<option value="Strawberry"></option>
+						<option value="Vanilla"></option>
+					</datalist>
+				</section>
+
+				<section>
+					<div class="centered">
+						<h2>Disclaimer</h2>
+						<p>Most features widely available, some with limited availability</p>
+					</div>
+				</section>
+
+				<section id="summary-details" data-auto-animate>
+					<h2><code>&lt;details></code> / <code>&lt;summary></code></h2>
+					<pre data-id="summary-details"><code class="language-html" data-trim data-line-numbers>
+						&lt;details>
+							&lt;summary>Point 1&lt;/summary>
+							&lt;p>Some info here.&lt;/p>
+						&lt;/details>
+						&lt;details>
+							&lt;summary>Point 2&lt;/summary>
+							&lt;p>Another info here.&lt;/p>
+						&lt;/details>
+					</code></pre>
+					<details>
+						<summary>Point 1</summary>
+						<p>Some info here.</p>
+					</details>
+					<details>
+						<summary>Point 2</summary>
+						<p>Another info here.</p>
+					</details>
+
+					<p class="baseline-widely-available" data-id="baseline">Baseline Widely available</p>
+				</section>
+
+				<section id="summary-details" data-auto-animate>
+					<h2>One <code>&lt;details></code> open at a time</h2>
+					<pre data-id="summary-details"><code class="language-html" data-trim data-line-numbers>
+						&lt;details name="faq">
+							&lt;summary>Point 1&lt;/summary>
+							&lt;p>Some info here.&lt;/p>
+						&lt;/details>
+						&lt;details name="faq">
+							&lt;summary>Point 2&lt;/summary>
+							&lt;p>Another info here.&lt;/p>
+						&lt;/details>
+					</code></pre>
+					<details name="faq">
+						<summary>Point 1</summary>
+						<p>Some info here.</p>
+					</details>
+					<details name="faq">
+						<summary>Point 2</summary>
+						<p>Another info here.</p>
+					</details>
+
+					<p class="baseline-widely-available" data-id="baseline">Baseline Widely available</p>
+				</section>
+
+				<section id="invoker-commands-api" data-auto-animate>
+					<h2>Invoker Commands API</h2>
+					<pre data-id="invoker-commands-api"><code class="language-html" data-trim data-line-numbers="1-7|1,6|1,3">
+						&lt;dialog id="mydialog">
+							This is a dialog.
+							<button commandfor="mydialog" command="close">Close</button>
+						&lt;/dialog>
+						&lt;button
+							commandfor="mydialog" command="show-modal"
+						>Open dialog&lt;/button>
+					</code></pre>
+
+					<dialog id="mydialog">
+						This is a dialog.
+						<button commandfor="mydialog" command="close">Close</button>
+					</dialog>
+					<button commandfor="mydialog" command="show-modal">Open dialog</button>
+
+					<p class="baseline-newly-available" data-id="baseline">Baseline newly available</p>
+				</section>
+
+				<section id="invoker-commands-api-custom-command" data-auto-animate>
+					<h2>Invoker Commands API - Custom command</h2>
+					<pre data-id="invoker-commands-api"><code class="language-html" data-trim data-line-numbers="1-5|4">
+						&lt;img src="https://picsum.photos/id/237/1440/810"
+							id="myimage" alt="Random Lorem Picsum image">
+						&lt;button
+							commandfor="myimage" command="--change"
+						>Change image&lt;/button>
+					</code></pre>
+					<pre data-id="invoker-commands-api"><code class="language-javascript" data-trim data-line-numbers="1-7|1|3">
+						document.querySelector('#myimage').addEventListener('command',
+							(evt) => {
+								if (evt.command === '--change') {
+									const id = [237, 353, 182][Math.round(Math.random() * 4)];
+									evt.target.src = `https://picsum.photos/id/${id}/1440/810`;
+								}
+							});
+					</code></pre>
+
+					<p class="baseline-newly-available" data-id="baseline">Baseline newly available</p>
+				</section>
+
+
+				<section id="invoker-commands-api-custom-command-example" data-auto-animate>
+					<h2>Invoker Commands API - Custom command example</h2>
+					<img src="https://picsum.photos/id/237/1440/810" id="myimage" width="1440" height="810" alt="Random Lorem Picsum image">
+					<button commandfor="myimage" command="--change">Change image</button>
+					<script>
+						document.querySelector('#myimage').addEventListener('command', (evt) => {
+							if (evt.command === '--change') {
+								const id = [237, 353, 182, 791, 544][Math.round(Math.random() * 4)];
+								evt.target.src = `https://picsum.photos/id/${id}/1440/810`;
+							}
+						});
+					</script>
+
+					<p class="baseline-widely-available" data-id="baseline">Baseline Widely available</p>
+				</section>
+
+				<section id="popover-api" data-auto-animate>
+					<h2>Popover API</h2>
+					<pre data-id="popover-api"><code class="language-html" data-trim data-line-numbers="1-4|1|4">
+						&lt;div id="mypopover" popover>
+							This is a popover.
+						&lt;/div>
+						&lt;button popovertarget="mypopover">Open popover&lt;/button>
+					</code></pre>
+
+					<div id="mypopover" popover>
+						This is a popover.
+					</div>
+					<button popovertarget="mypopover">Open popover</button>
+
+					<p class="baseline-newly-available" data-id="baseline">Baseline newly available</p>
+				</section>
+
+				<section id="inert-attribute" data-auto-animate>
+					<h2><code>inert</code> attribute</h2>
+					<pre data-id="inert-attribute"><code class="language-html" data-trim data-line-numbers="1-11|1">
+						&lt;form inert>
+							&lt;label for="input">
+								Input
+								&lt;input id="input">
+							&lt;/label>
+							&lt;label for="select">
+								Select
+								&lt;select id="select">&lt;option>CFCamp&lt;/option>&lt;/select>
+							&lt;/label>
+							&lt;button type="submit">Send data&lt;/button>
+						&lt;/form>
+					</code></pre>
+
+					<p class="baseline-widely-available" data-id="baseline">Baseline Widely available</p>
+				</section>
+
+				<section id="inert-attribute-example" data-auto-animate>
+					<h2><code>inert</code> attribute example</h2>
+					<form id="inert-form">
+						<label for="input">
+							Input
+							<input id="input">
+						</label>
+						<label for="select">
+							Select
+							<select id="select"><option>CFCamp</option></select>
+						</label>
+						<button type="submit">Send data</button>
+					</form>
+					<button onclick="makeInert()">Toggle form inert</button>
+					<script>
+						function makeInert() {
+							const form = document.querySelector('#inert-form');
+							form.inert = !form.inert;
+						}
+					</script>
+
+					<p class="baseline-widely-available" data-id="baseline">Baseline Widely available</p>
+				</section>
+
+				<section id="custom-selects" data-auto-animate>
+					<h2>Custom Selects</h2>
+					<pre data-id="custom-selects"><code class="language-html" data-trim>
+						&lt;select id="custom-select">
+							&lt;button>&lt;selectedcontent>&lt;/selectedcontent>&lt;/button>
+							&lt;option value="de">&lt;img src="img/de.png" alt=""> Germany&lt;/option>
+							&lt;option value="es">&lt;img src="img/es.png" alt=""> Spain&lt;/option>
+							&lt;option value="us">&lt;img src="img/us.png" alt=""> USA&lt;/option>
+						&lt;/select>
+					</code></pre>
+					<pre data-id="custom-selects"><code class="language-css" data-trim>
+						#custom-select, ::picker(select) { appearance: base-select; }
+					</code></pre>
+
+					<select id="custom-select">
+						<button>
+							<selectedcontent></selectedcontent>
+						</button>
+						<option value="de"><img src="img/de.webp" width="16" height="13" alt=""> Germany</option>
+						<option value="es"><img src="img/es.webp" width="16" height="13" alt=""> Spain</option>
+						<option value="us"><img src="img/us.webp" width="16" height="13" alt=""> USA</option>
+					</select>
+					<style>
+						#custom-select,
+						::picker(select) {
+							appearance: base-select;
+							align-items: center;
+						}
+
+						#custom-select {
+							height: 2em;
+						}
+
+						selectedcontent {
+							display: flex;
+							align-items: center;
+							gap: 8px;
+						}
+					</style>
+
+					<p class="baseline-limited-availability" data-id="baseline">Limited availability</p>
+				</section>
+
+				<section id="custom-selects-features" data-auto-animate>
+					<h2>Custom Selects Features</h2>
+					<img src="img/custom-select-parts.png" alt="Custom select parts" width="877" height="400">
+					<a href="https://una.im/select-updates/" class="image-note">Image by Una Kravets</a>
+
+					<a href="https://codepen.io/collection/BNZjPe">Demos by Una Kravets</a>
+
+					<p class="baseline-limited-availability" data-id="baseline">Limited availability</p>
+				</section>
+
+				<section>
+					<div class="centered">
+						<h2>Thank you!</h2>
+					</div>
+				</section>
+			</div>
+		</div>
+		<script type="importmap">
+			{
+				"imports": {
+					"reveal.js": "./node_modules/reveal.js/dist/reveal.mjs",
+					"markdown": "./node_modules/reveal.js/dist/plugin/markdown.mjs",
+					"highlight": "./node_modules/reveal.js/dist/plugin/highlight.mjs"
+				}
+			}
+		</script>
+		<script type="module" src="main.js"></script>
+	</body>
+</html>
