@@ -28,7 +28,6 @@ const Slides = () => (
 				<li>Threading explained</li>
 				<li>High-Level APIs</li>
 				<li>Low-Level APIs</li>
-				<li>Low-Level APIs</li>
 				<li>Best practices</li>
 				<li>Limitations &amp; caveats</li>
 			</ul>
@@ -341,7 +340,7 @@ const Slides = () => (
 		</Slide>
 
 		<Slide autoAnimate>
-			<h2>Task threads</h2>
+			<h2>Task threads (Lucee-only)</h2>
 			<Code language="cfml" id="task-threads" trim lineNumbers="1-12|5">{`
 				request.counter = 0;
 
@@ -355,6 +354,46 @@ const Slides = () => (
 				threadJoin();
 				dump(var=request.counter, label="All threads completed");
 				dump("Total execution time: #getTickCount()-start#ms");
+			`}</Code>
+		</Slide>
+
+		<Slide autoAnimate>
+			<h2>Virtual threads (Lucee 8)</h2>
+			<p>
+				Lightweight threads managed by the JVM rather than the operating system.
+				See the <a href="https://docs.lucee.org/recipes/virtual-threads.html">Lucee docs</a>.
+			</p>
+			<Code language="cfml" id="virtual-threads" trim lineNumbers="1-12|5">{`
+				request.counter = 0;
+
+				start = getTickCount();
+				for (i = 1; i <= 20; i++) {
+					thread virtual=true {
+						sleep(1000);
+						request.counter++;
+					}
+				}
+				threadJoin();
+				dump(var=request.counter, label="All threads completed");
+				dump("Total execution time: #getTickCount()-start#ms");
+			`}</Code>
+		</Slide>
+
+		<Slide autoAnimate>
+			<h2>Virtual threading in parallel functions</h2>
+			<Code language="cfml" trim lineNumbers="1-12|10">{`
+				array = ["item1", "item2", "item3", "item4", "item5"];
+
+				start = getTickCount();
+				arrayEach(
+					array=array,
+					closure=(item) => {
+						sleep(1000);
+						writeOutput("#item# #now()#<br>");
+					},
+					parallel="virtual"
+				);
+				dump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
