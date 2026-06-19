@@ -154,6 +154,25 @@ const Slides = () => (
 			`}</Code>
 		</Slide>
 
+		<Slide autoAnimate>
+			<h2><code>runAsync()</code> and futures</h2>
+			<Code language="cfml" id="runasync" trim lineNumbers="1-13|3-6|11">{`
+				runs = 10;
+				for (i = 1; i <= runs; i++) {
+					request["future#i#"] = runAsync(() => {
+						sleep(1000);
+						return randRange(1, 100);
+					});
+				}
+
+				start = getTickCount();
+				for (i = 1; i <= runs; i++) {
+					dump(request["future#i#"].get());
+				}
+				dump("Total execution time: #getTickCount()-start#ms");
+			`}</Code>
+		</Slide>
+
 		<Slide>
 			<h2>Function Listeners</h2>
 			<p>Modern promise-like syntax for async execution.</p>
@@ -214,25 +233,6 @@ const Slides = () => (
 					}
 				};
 				dump("Processing completed in #getTickCount() - start# ms");
-			`}</Code>
-		</Slide>
-
-		<Slide autoAnimate>
-			<h2><code>runAsync()</code> and futures</h2>
-			<Code language="cfml" id="runasync" trim lineNumbers="1-13|3-6|11">{`
-				runs = 10;
-				for (i = 1; i <= runs; i++) {
-					request["future#i#"] = runAsync(() => {
-						sleep(1000);
-						return randRange(1, 100);
-					});
-				}
-
-				start = getTickCount();
-				for (i = 1; i <= runs; i++) {
-					dump(request["future#i#"].get());
-				}
-				dump("Total execution time: #getTickCount()-start#ms");
 			`}</Code>
 		</Slide>
 
