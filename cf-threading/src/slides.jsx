@@ -22,12 +22,30 @@ const Slides = () => (
 		</Slide>
 
 		<Slide>
+			<h2>Agenda</h2>
+			<ul>
+				<li>Why use threads?</li>
+				<li>Threading explained</li>
+				<li>High-Level APIs</li>
+				<li>Low-Level APIs</li>
+				<li>Low-Level APIs</li>
+				<li>Best practices</li>
+				<li>Limitations &amp; caveats</li>
+			</ul>
+		</Slide>
+
+		<Slide>
 			<h2>Why use threads?</h2>
 			<ul>
 				<li>Perform multiple independent tasks concurrently</li>
 				<li>Offload long-running or blocking work</li>
 				<li>Keep user-facing requests responsive</li>
 			</ul>
+		</Slide>
+
+		<Slide>
+			<h2>Threading explained</h2>
+			<img src="assets/threading-explained.webp" alt="Threading in CFML/Lucee explained in three steps"/>
 		</Slide>
 
 		<Slide>
@@ -200,6 +218,30 @@ const Slides = () => (
 			`}</Code>
 		</Slide>
 
+		<Slide autoAnimate>
+			<h2><code>runAsync()</code> and futures</h2>
+			<Code language="cfml" id="runasync" trim lineNumbers="1-13|3-6|11">{`
+				runs = 10;
+				for (i = 1; i <= runs; i++) {
+					request["future#i#"] = runAsync(() => {
+						sleep(1000);
+						return randRange(1, 100);
+					});
+				}
+
+				start = getTickCount();
+				for (i = 1; i <= runs; i++) {
+					dump(request["future#i#"].get());
+				}
+				dump("Total execution time: #getTickCount()-start#ms");
+			`}</Code>
+		</Slide>
+
+		<Slide>
+			<h2>Low-level APIs</h2>
+			<p>All about <code>&lt;cfthread></code> / <code>thread</code></p>
+		</Slide>
+
 		<Slide>
 			<h2>Basic thread blocks</h2>
 			<Code language="cfml" trim lineNumbers="1-10|2-4">{`
@@ -280,24 +322,6 @@ const Slides = () => (
 		</Slide>
 
 		<Slide autoAnimate>
-			<h2>Task threads</h2>
-			<Code language="cfml" id="task-threads" trim lineNumbers="1-12|5">{`
-				request.counter = 0;
-
-				start = getTickCount();
-				for (i = 1; i <= 20; i++) {
-					thread type="task" {
-						sleep(1000);
-						request.counter++;
-					}
-				}
-				threadJoin();
-				dump(var=request.counter, label="All threads completed");
-				dump("Total execution time: #getTickCount()-start#ms");
-			`}</Code>
-		</Slide>
-
-		<Slide autoAnimate>
 			<h2>Shared data</h2>
 			<Code language="cfml" id="shared-data" trim lineNumbers="7-9">{`
 				request.counter = 0;
@@ -317,26 +341,25 @@ const Slides = () => (
 		</Slide>
 
 		<Slide autoAnimate>
-			<h2><code>runAsync()</code> and futures</h2>
-			<Code language="cfml" id="runasync" trim lineNumbers="1-13|3-6|11">{`
-				runs = 10;
-				for (i = 1; i <= runs; i++) {
-					request["future#i#"] = runAsync(() => {
-						sleep(1000);
-						return randRange(1, 100);
-					});
-				}
+			<h2>Task threads</h2>
+			<Code language="cfml" id="task-threads" trim lineNumbers="1-12|5">{`
+				request.counter = 0;
 
 				start = getTickCount();
-				for (i = 1; i <= runs; i++) {
-					dump(request["future#i#"].get());
+				for (i = 1; i <= 20; i++) {
+					thread type="task" {
+						sleep(1000);
+						request.counter++;
+					}
 				}
+				threadJoin();
+				dump(var=request.counter, label="All threads completed");
 				dump("Total execution time: #getTickCount()-start#ms");
 			`}</Code>
 		</Slide>
 
 		<Slide>
-			<h2>Best Practices</h2>
+			<h2>Best practices</h2>
 			<ul>
 				<li>Prefer high-level APIs when possible</li>
 				<li>Limit number of concurrent threads to CPU and I/O characteristics</li>
