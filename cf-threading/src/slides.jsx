@@ -66,7 +66,7 @@ const Slides = () => (
 					parallel=true,
 					maxThreads=3
 				);
-				writeDump("Processing completed in #getTickCount() - start# ms");
+				dump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
@@ -90,7 +90,7 @@ const Slides = () => (
 					parallel=true,
 					maxThreads=3
 				);
-				writeDump("Processing completed in #getTickCount() - start# ms");
+				dump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
@@ -114,7 +114,7 @@ const Slides = () => (
 					parallel=true,
 					maxThreads=3
 				);
-				writeDump("Processing completed in #getTickCount() - start# ms");
+				dump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
@@ -133,7 +133,7 @@ const Slides = () => (
 					parallel=true,
 					maxThreads=3
 				);
-				writeDump("Processing completed in #getTickCount() - start# ms");
+				dump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
@@ -150,7 +150,7 @@ const Slides = () => (
 				fetchUserData(123):function(result, error) {
 					fileWrite("./user_data.txt", serializeJson(result));
 				};
-				writeDump("Processing completed in #getTickCount() - start# ms");
+				dump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
@@ -171,8 +171,8 @@ const Slides = () => (
 				}
 
 				threadJoin(timeout=10000);
-				writeDump(cfthread);
-				writeDump("Processing completed in #getTickCount() - start# ms");
+				dump(cfthread);
+				dump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
@@ -196,7 +196,7 @@ const Slides = () => (
 						systemOutput("Failed: #error.message#", true);
 					}
 				};
-				writeDump("Processing completed in #getTickCount() - start# ms");
+				dump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
@@ -212,7 +212,7 @@ const Slides = () => (
 				logData("Important info");
 				logData("More info");
 				logData("Even more info");
-				writeDump("Function called asynchronously");
+				dump("Function called asynchronously");
 			`}</Code>
 		</Slide>
 
@@ -232,10 +232,10 @@ const Slides = () => (
 
 				thread action="terminate" name="x";
 				sleep(500);
-				writeDump(var=cfthread, label="Threads statuses before joining");
+				dump(var=cfthread, label="Threads statuses before joining");
 				thread action="join" name="#cfthread.keyList()#";
-				writeDump(var=cfthread, label="All threads completed");
-				writeDump("Total execution time: #getTickCount()-start#ms");
+				dump(var=cfthread, label="All threads completed");
+				dump("Total execution time: #getTickCount()-start#ms");
 			`}</Code>
 		</Slide>
 
@@ -256,8 +256,8 @@ const Slides = () => (
 				fetchData("y", 3000);
 				fetchData("z", 2000);
 				thread action="join" name=cfthread.keyList();
-				writeDump(var=cfthread, label="All threads completed");
-				writeDump("Total execution time: #getTickCount()-start#ms");
+				dump(var=cfthread, label="All threads completed");
+				dump("Total execution time: #getTickCount()-start#ms");
 			`}</Code>
 		</Slide>
 
@@ -274,8 +274,8 @@ const Slides = () => (
 					}
 				}
 				threadJoin();
-				writeDump(var=request.counter, label="All threads completed");
-				writeDump("Total execution time: #getTickCount()-start#ms");
+				dump(var=request.counter, label="All threads completed");
+				dump("Total execution time: #getTickCount()-start#ms");
 			`}</Code>
 		</Slide>
 
@@ -292,8 +292,8 @@ const Slides = () => (
 					}
 				}
 				threadJoin();
-				writeDump(var=request.counter, label="All threads completed");
-				writeDump("Total execution time: #getTickCount()-start#ms");
+				dump(var=request.counter, label="All threads completed");
+				dump("Total execution time: #getTickCount()-start#ms");
 			`}</Code>
 		</Slide>
 
@@ -311,14 +311,14 @@ const Slides = () => (
 						}
 				}
 				threadJoin();
-				writeDump(var=request.counter, label="All threads completed");
-				writeDump("Total execution time: #getTickCount()-start#ms");
+				dump(var=request.counter, label="All threads completed");
+				dump("Total execution time: #getTickCount()-start#ms");
 			`}</Code>
 		</Slide>
 
 		<Slide autoAnimate>
 			<h2><code>runAsync()</code> and futures</h2>
-			<pre><code className="language-cfml" id="runasync" trim lineNumbers="1-13|3-6|11">{`
+			<Code language="cfml" id="runasync" trim lineNumbers="1-13|3-6|11">{`
 				runs = 10;
 				for (i = 1; i <= runs; i++) {
 					request["future#i#"] = runAsync(() => {
@@ -329,10 +329,10 @@ const Slides = () => (
 
 				start = getTickCount();
 				for (i = 1; i <= runs; i++) {
-					writeDump(request["future#i#"].get());
+					dump(request["future#i#"].get());
 				}
-				writeDump("Total execution time: #getTickCount()-start#ms");
-			`}</code></pre>
+				dump("Total execution time: #getTickCount()-start#ms");
+			`}</Code>
 		</Slide>
 
 		<Slide>

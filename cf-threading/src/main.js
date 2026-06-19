@@ -8,7 +8,7 @@ Reveal.initialize({
 	hash: true,
 	transition: 'slide',
 	disableLayout: false,
-	view: 'scroll',
+	fragments: true,
 	highlight: {
 		beforeHighlight: (hljs) => hljs.registerLanguage('cfml', cfml),
 	}

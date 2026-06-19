@@ -17,6 +17,7 @@ export default function App() {
 			controls: true,
 			progress: true,
 			center: true,
+			fragments: true,
 			highlight: {
 				beforeHighlight: (hljs) => hljs.registerLanguage('cfml', cfml),
 			}
