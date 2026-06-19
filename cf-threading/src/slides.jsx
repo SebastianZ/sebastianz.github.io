@@ -1,22 +1,8 @@
 import React from 'react'
-import { Deck, Slide, Code } from '@revealjs/react'
-import RevealHighlight from 'reveal.js/plugin/highlight';
-import cfml from './cfml.js';
+import { Slide, Code } from '@revealjs/react'
 
 const Slides = () => (
-	<Deck
-		plugins={[RevealHighlight]}
-		config={{
-			hash: true,
-			transition: 'slide',
-			disableLayout: false,
-			controls: false,
-			progress: false,
-			highlight: {
-				beforeHighlight: (hljs) => hljs.registerLanguage('cfml', cfml),
-			}
-		}}
-	>
+	<>
 		<Slide>
 			<div class="center-contents">
 				<h1>Boost your app's performance using threads</h1>
@@ -67,7 +53,7 @@ const Slides = () => (
 
 		<Slide>
 			<h2>Parallel array processing</h2>
-			<Code language="cfml">{`
+			<Code language="cfml" trim lineNumbers="1-13|10|11">{`
 				array = ["item1", "item2", "item3", "item4", "item5"];
 
 				start = getTickCount();
@@ -80,13 +66,13 @@ const Slides = () => (
 					parallel=true,
 					maxThreads=3
 				);
-				dump("Processing completed in #getTickCount() - start# ms");
+				writeDump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
 		<Slide>
 			<h2>Parallel struct processing</h2>
-			<Code language="cfml">{`
+			<Code language="cfml" trim lineNumbers="1-18|15-16">{`
 				struct = {
 					key1: "Alice",
 					key2: "Bob",
@@ -104,13 +90,13 @@ const Slides = () => (
 					parallel=true,
 					maxThreads=3
 				);
-				dump("Processing completed in #getTickCount() - start# ms");
+				writeDump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
 		<Slide>
 			<h2>Parallel query processing</h2>
-			<Code language="cfml">{`
+			<Code language="cfml" trim lineNumbers="1-18|15-16">{`
 				query = queryNew("id,name", "integer,varchar", [
 					{id: 1, name: "Alice"},
 					{id: 2, name: "Bob"},
@@ -128,13 +114,13 @@ const Slides = () => (
 					parallel=true,
 					maxThreads=3
 				);
-				dump("Processing completed in #getTickCount() - start# ms");
+				writeDump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
 		<Slide>
 			<h2>Parallel list processing</h2>
-			<Code language="cfml">{`
+			<Code language="cfml" trim lineNumbers="1-13|10-11">{`
 				list = "item1,item2,item3,item4,item5";
 
 				start = getTickCount();
@@ -147,14 +133,14 @@ const Slides = () => (
 					parallel=true,
 					maxThreads=3
 				);
-				dump("Processing completed in #getTickCount() - start# ms");
+				writeDump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
 		<Slide>
 			<h2>Function Listeners</h2>
 			<p>Modern promise-like syntax for async execution.</p>
-			<Code language="cfml">{`
+			<Code language="cfml" trim lineNumbers="1-10|7-9">{`
 				function fetchUserData(userId) {
 					sleep(5000);
 					return {"id": userId, "name": "User #userId#"};
@@ -164,13 +150,13 @@ const Slides = () => (
 				fetchUserData(123):function(result, error) {
 					fileWrite("./user_data.txt", serializeJson(result));
 				};
-				dump("Processing completed in #getTickCount() - start# ms");
+				writeDump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
 		<Slide>
 			<h2>Joining Function Listeners</h2>
-			<Code language="cfml">{`
+			<Code language="cfml" trim lineNumbers="1-16|14">{`
 				function fetchUserData(userId) {
 					sleep(1000);
 					return {"id": userId, "name": "User #userId#"};
@@ -185,14 +171,14 @@ const Slides = () => (
 				}
 
 				threadJoin(timeout=10000);
-				dump(cfthread);
-				dump("Processing completed in #getTickCount() - start# ms");
+				writeDump(cfthread);
+				writeDump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
 		<Slide>
 			<h2>Error handling with Function Listeners</h2>
-			<Code language="cfml">{`
+			<Code language="cfml" trim lineNumbers="1-18|10-17">{`
 				function randomFailure() {
 					sleep(1000);
 					if (randRange(1, 2) == 1) {
@@ -210,13 +196,13 @@ const Slides = () => (
 						systemOutput("Failed: #error.message#", true);
 					}
 				};
-				dump("Processing completed in #getTickCount() - start# ms");
+				writeDump("Processing completed in #getTickCount() - start# ms");
 			`}</Code>
 		</Slide>
 
 		<Slide>
 			<h2>Basic thread blocks</h2>
-			<Code language="cfml">{`
+			<Code language="cfml" trim lineNumbers="1-10|2-4">{`
 				function logData(data) {
 					thread {
 						sleep(1000);
@@ -226,13 +212,13 @@ const Slides = () => (
 				logData("Important info");
 				logData("More info");
 				logData("Even more info");
-				dump("Function called asynchronously");
+				writeDump("Function called asynchronously");
 			`}</Code>
 		</Slide>
 
 		<Slide>
 			<h2>Thread management</h2>
-			<Code language="cfml">{`
+			<Code language="cfml" trim lineNumbers="1-17|2-4|12|15">{`
 				function fetchData(name) {
 					thread name="#name#" {
 						thread action="sleep" duration=1000;
@@ -246,16 +232,16 @@ const Slides = () => (
 
 				thread action="terminate" name="x";
 				sleep(500);
-				dump(var=cfthread, label="Threads statuses before joining");
+				writeDump(var=cfthread, label="Threads statuses before joining");
 				thread action="join" name="#cfthread.keyList()#";
-				dump(var=cfthread, label="All threads completed");
-				dump("Total execution time: #getTickCount()-start#ms");
+				writeDump(var=cfthread, label="All threads completed");
+				writeDump("Total execution time: #getTickCount()-start#ms");
 			`}</Code>
 		</Slide>
 
 		<Slide>
 			<h2>Passing variables to and from threads</h2>
-			<Code language="cfml">{`
+			<Code language="cfml" trim lineNumbers="1-16|2,4|5-6">{`
 				function fetchData(name, delay) {
 					thread name="#name#" delay="#delay#" {
 						var start = getTickCount();
@@ -270,14 +256,14 @@ const Slides = () => (
 				fetchData("y", 3000);
 				fetchData("z", 2000);
 				thread action="join" name=cfthread.keyList();
-				dump(var=cfthread, label="All threads completed");
-				dump("Total execution time: #getTickCount()-start#ms");
+				writeDump(var=cfthread, label="All threads completed");
+				writeDump("Total execution time: #getTickCount()-start#ms");
 			`}</Code>
 		</Slide>
 
 		<Slide autoAnimate>
 			<h2>Shared data</h2>
-			<Code language="cfml" data-id="shared-data" data-line-numbers>{`
+			<Code language="cfml" id="shared-data" trim lineNumbers="1-12|7">{`
 				request.counter = 0;
 
 				start = getTickCount();
@@ -288,14 +274,32 @@ const Slides = () => (
 					}
 				}
 				threadJoin();
-				dump(var=request.counter, label="All threads completed");
-				dump("Total execution time: #getTickCount()-start#ms");
+				writeDump(var=request.counter, label="All threads completed");
+				writeDump("Total execution time: #getTickCount()-start#ms");
+			`}</Code>
+		</Slide>
+
+		<Slide autoAnimate>
+			<h2>Task threads</h2>
+			<Code language="cfml" id="task-threads" trim lineNumbers="1-12|5">{`
+				request.counter = 0;
+
+				start = getTickCount();
+				for (i = 1; i <= 20; i++) {
+					thread type="task" {
+						sleep(1000);
+						request.counter++;
+					}
+				}
+				threadJoin();
+				writeDump(var=request.counter, label="All threads completed");
+				writeDump("Total execution time: #getTickCount()-start#ms");
 			`}</Code>
 		</Slide>
 
 		<Slide autoAnimate>
 			<h2>Shared data</h2>
-			<Code language="cfml" data-id="shared-data" data-line-numbers>{`
+			<Code language="cfml" id="shared-data" trim lineNumbers="7-9">{`
 				request.counter = 0;
 
 				start = getTickCount();
@@ -307,17 +311,14 @@ const Slides = () => (
 						}
 				}
 				threadJoin();
-				dump(var=request.counter, label="All threads completed");
-				dump("Total execution time: #getTickCount()-start#ms");
+				writeDump(var=request.counter, label="All threads completed");
+				writeDump("Total execution time: #getTickCount()-start#ms");
 			`}</Code>
 		</Slide>
 
-		<Slide>
+		<Slide autoAnimate>
 			<h2><code>runAsync()</code> and futures</h2>
-			<p>
-				Use <code>runAsync()</code> for running a function asynchronously and returning a future/promise-like handle.
-			</p>
-			<pre><code className="language-cfml">{`
+			<pre><code className="language-cfml" id="runasync" trim lineNumbers="1-13|3-6|11">{`
 				runs = 10;
 				for (i = 1; i <= runs; i++) {
 					request["future#i#"] = runAsync(() => {
@@ -328,9 +329,9 @@ const Slides = () => (
 
 				start = getTickCount();
 				for (i = 1; i <= runs; i++) {
-					dump(request["future#i#"].get());
+					writeDump(request["future#i#"].get());
 				}
-				dump("Total execution time: #getTickCount()-start#ms");
+				writeDump("Total execution time: #getTickCount()-start#ms");
 			`}</code></pre>
 		</Slide>
 
@@ -370,7 +371,7 @@ const Slides = () => (
 				<p>Any questions?</p>
 			</div>
 		</Slide>
-	</Deck>
+	</>
 )
 
 export default Slides
